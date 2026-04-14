@@ -35,6 +35,7 @@ lib/
 | Package | Purpose |
 |---|---|
 | `dio` | HTTP client for API requests |
+| `dio_cache_interceptor` | HTTP response caching via Dio interceptor |
 | `provider` | Dependency injection and state management |
 | `go_router` | Declarative named routing |
 | `json_serializable` | Code generation for JSON serialization |
@@ -64,6 +65,16 @@ flutter run
 ### Supported Platforms
 
 Android (minSdk 21), iOS, Web, Windows, macOS.
+
+## Caching Strategy
+
+HTTP responses are cached using `dio_cache_interceptor` with an in-memory store (`MemCacheStore`) and `CachePolicy.forceCache`. This means:
+
+- Every response is cached for the lifetime of the app session.
+- Subsequent identical requests are served from memory without hitting the network.
+- **No TTL is set intentionally.** The Rick and Morty API is static — episodes and characters never change — so there is no value in expiring and re-fetching data that will always return the same result. Skipping TTL keeps the implementation simple and eliminates unnecessary network traffic.
+
+The cache is wired at the `DioClient` level (`lib/core/network/dio_client.dart`), so it applies transparently to all requests made by the app.
 
 ## API
 

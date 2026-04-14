@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rick_and_morty/core/network/dio_client.dart';
 import 'package:rick_and_morty/data/repositories/character/character_repository.dart';
 import 'package:rick_and_morty/data/repositories/character/character_repository_remote.dart';
 import 'package:rick_and_morty/data/repositories/episode/character_repository_remote.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(create: (_) => Dio()),
+        Provider(create: (_) => DioClient.create()),
         Provider(create: (context) => RickAndMortyService(context.read<Dio>())),
         Provider<EpisodeRepository>(
           create: (context) =>
