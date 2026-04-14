@@ -64,7 +64,49 @@ flutter run
 
 ### Supported Platforms
 
-Android (minSdk 21), iOS, Web, Windows, macOS.
+Android (minSdk 21), iOS, Web
+
+## Testing
+
+Tests live under `test/`, mirroring the `lib/` folder structure.
+
+```
+test/
+├── domain/
+│   ├── models/        # Serialization tests for all domain models
+│   │   ├── character_test.dart
+│   │   ├── episode_test.dart
+│   │   ├── location_test.dart
+│   │   └── origin_test.dart
+│   └── usecases/      # Unit tests for use cases (repository mocked)
+│       ├── get_characters_usecase_test.dart
+│       └── get_episodes_usecase_test.dart
+├── mocks/             # Mockito-generated mocks
+└── utils/             # Shared test helpers (dummy values)
+```
+
+**Model tests** verify `fromJson`/`toJson` against realistic API payloads, including nested objects (`Origin`, `Location`) and list fields. They act as a contract test between the model definitions and the API response shape.
+
+**Use case tests** mock the repository layer and assert correct result propagation (`Ok`/`Error`) without hitting the network.
+
+### Running tests
+
+```bash
+# Run all tests
+flutter test
+
+# Run with coverage
+flutter test --coverage
+
+# Strip generated files from the coverage report
+lcov --remove coverage/lcov.info '**/*.g.dart' '**/generated/*' -o coverage/lcov_cleaned.info
+
+# Generate HTML report
+genhtml coverage/lcov_cleaned.info -o coverage/html
+open coverage/html/index.html
+```
+
+> Generated files (`*.g.dart`) are excluded from coverage because they are produced by `json_serializable` and not written by hand. The model classes themselves are covered through the serialization tests.
 
 ## Caching Strategy
 
