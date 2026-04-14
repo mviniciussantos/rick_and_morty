@@ -7,9 +7,9 @@ part of 'episode.dart';
 // **************************************************************************
 
 Episode _$EpisodeFromJson(Map<String, dynamic> json) => Episode(
-  id: json['id'].toString(),
+  id: json['id'] as String,
   name: json['name'] as String,
-  airDate: json['air_date'] as String,
+  airDate: json['airDate'] as String,
   episode: json['episode'] as String,
   characters: (json['characters'] as List<dynamic>)
       .map((e) => e as String)

@@ -17,6 +17,7 @@ class Character {
   final String created;
   final Origin origin;
   final Location location;
+  final List<String> episode;
 
   Character({
     required this.id,
@@ -30,6 +31,7 @@ class Character {
     required this.created,
     required this.origin,
     required this.location,
+    required this.episode,
   });
 
   factory Character.fromJson(Map<String, dynamic> json) =>

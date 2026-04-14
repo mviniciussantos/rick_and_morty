@@ -7,7 +7,7 @@ part of 'character.dart';
 // **************************************************************************
 
 Character _$CharacterFromJson(Map<String, dynamic> json) => Character(
-  id: json['id'].toString(),
+  id: json['id'] as String,
   name: json['name'] as String,
   status: json['status'] as String,
   species: json['species'] as String,
@@ -18,6 +18,7 @@ Character _$CharacterFromJson(Map<String, dynamic> json) => Character(
   created: json['created'] as String,
   origin: Origin.fromJson(json['origin'] as Map<String, dynamic>),
   location: Location.fromJson(json['location'] as Map<String, dynamic>),
+  episode: (json['episode'] as List<dynamic>).map((e) => e as String).toList(),
 );
 
 Map<String, dynamic> _$CharacterToJson(Character instance) => <String, dynamic>{
@@ -32,4 +33,5 @@ Map<String, dynamic> _$CharacterToJson(Character instance) => <String, dynamic>{
   'created': instance.created,
   'origin': instance.origin,
   'location': instance.location,
+  'episode': instance.episode,
 };
