@@ -13,7 +13,7 @@ void main() {
   final usecase = GetEpisodesUseCaseImpl(episodeRepository);
   final episodeList = <Episode>[
     Episode(
-      id: '1',
+      id: 1,
       name: 'Pilot',
       airDate: 'December 2, 2013',
       episode: 'S01E01',

@@ -14,7 +14,7 @@ void main() {
   final usecase = GetCharactersUseCaseImpl(characterRepository);
   final characterList = <Character>[
     Character(
-      id: '1',
+      id: 1,
       name: 'Rick Sanchez',
       status: 'Alive',
       species: 'Human',

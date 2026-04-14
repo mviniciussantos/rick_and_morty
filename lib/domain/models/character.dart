@@ -6,7 +6,7 @@ part 'character.g.dart';
 
 @JsonSerializable()
 class Character {
-  final String id;
+  final int id;
   final String name;
   final String status;
   final String species;

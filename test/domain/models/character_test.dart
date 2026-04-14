@@ -5,7 +5,7 @@ import 'package:rick_and_morty/domain/models/origin.dart';
 
 void main() {
   const json = {
-    'id': '1',
+    'id': 1,
     'name': 'Rick Sanchez',
     'status': 'Alive',
     'species': 'Human',
@@ -32,14 +32,16 @@ void main() {
     test('fromJson maps all fields correctly', () {
       final character = Character.fromJson(json);
 
-      expect(character.id, '1');
+      expect(character.id, 1);
       expect(character.name, 'Rick Sanchez');
       expect(character.status, 'Alive');
       expect(character.species, 'Human');
       expect(character.type, '');
       expect(character.gender, 'Male');
-      expect(character.image,
-          'https://rickandmortyapi.com/api/character/avatar/1.jpeg');
+      expect(
+        character.image,
+        'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+      );
       expect(character.url, 'https://rickandmortyapi.com/api/character/1');
       expect(character.created, '2017-11-04T18:48:46.250Z');
     });
@@ -48,16 +50,20 @@ void main() {
       final character = Character.fromJson(json);
 
       expect(character.origin.name, 'Earth (C-137)');
-      expect(character.origin.url,
-          'https://rickandmortyapi.com/api/location/1');
+      expect(
+        character.origin.url,
+        'https://rickandmortyapi.com/api/location/1',
+      );
     });
 
     test('fromJson deserializes nested location correctly', () {
       final character = Character.fromJson(json);
 
       expect(character.location.name, 'Citadel of Ricks');
-      expect(character.location.url,
-          'https://rickandmortyapi.com/api/location/3');
+      expect(
+        character.location.url,
+        'https://rickandmortyapi.com/api/location/3',
+      );
     });
 
     test('fromJson deserializes episode list correctly', () {
@@ -72,13 +78,16 @@ void main() {
     test('toJson maps scalar fields correctly', () {
       final result = Character.fromJson(json).toJson();
 
-      expect(result['id'], '1');
+      expect(result['id'], 1);
       expect(result['name'], 'Rick Sanchez');
       expect(result['status'], 'Alive');
       expect(result['species'], 'Human');
       expect(result['type'], '');
       expect(result['gender'], 'Male');
-      expect(result['image'], 'https://rickandmortyapi.com/api/character/avatar/1.jpeg');
+      expect(
+        result['image'],
+        'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+      );
       expect(result['url'], 'https://rickandmortyapi.com/api/character/1');
       expect(result['created'], '2017-11-04T18:48:46.250Z');
     });

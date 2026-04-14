@@ -50,7 +50,9 @@ class _EpisodesScreenState extends State<EpisodesScreen> {
         selector: (context, viewModel) => viewModel.episodes,
         builder: (context, episodes, child) {
           if (widget.viewModel.isLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return Expanded(
+              child: const Center(child: CircularProgressIndicator()),
+            );
           } else if (widget.viewModel.error != null) {
             return Center(
               child: Text(

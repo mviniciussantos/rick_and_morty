@@ -3,9 +3,9 @@ import 'package:rick_and_morty/domain/models/episode.dart';
 
 void main() {
   const json = {
-    'id': '1',
+    'id': 1,
     'name': 'Pilot',
-    'airDate': 'December 2, 2013',
+    'air_date': 'December 2, 2013',
     'episode': 'S01E01',
     'characters': [
       'https://rickandmortyapi.com/api/character/1',
@@ -19,7 +19,7 @@ void main() {
     test('fromJson maps all fields correctly', () {
       final episode = Episode.fromJson(json);
 
-      expect(episode.id, '1');
+      expect(episode.id, 1);
       expect(episode.name, 'Pilot');
       expect(episode.airDate, 'December 2, 2013');
       expect(episode.episode, 'S01E01');
