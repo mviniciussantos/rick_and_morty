@@ -10,7 +10,9 @@ class EpisodeRepositoryRemote implements EpisodeRepository {
   EpisodeRepositoryRemote(this._service);
 
   @override
-  Future<Result<PaginatedResponse<Episode>>> getEpisodes({required int page}) {
-    return _service.getEpisodes(page: page);
+  Stream<Result<PaginatedResponse<Episode>>> getEpisodes({
+    required int page,
+  }) async* {
+    yield await _service.getEpisodes(page: page);
   }
 }

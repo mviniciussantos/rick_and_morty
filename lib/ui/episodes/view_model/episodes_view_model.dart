@@ -21,21 +21,37 @@ class EpisodesViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
   Exception? get error => _error;
 
+  final _seenIds = <int>{};
+
   Future<void> getEpisodes() async {
     if (_isLoading || !_hasNext) return;
     _isLoading = true;
     notifyListeners();
-    final result = await _getEpisodesUseCase.call(page: _page);
-    switch (result) {
-      case Ok():
-        _episodes.addAll(result.value.results);
-        _page++;
-        _hasNext = result.value.hasNext;
-        _error = null;
-      case Error():
-        _error = result.error;
+
+    var isFirstEmission = true;
+
+    await for (final result in _getEpisodesUseCase.call(page: _page)) {
+      switch (result) {
+        case Ok():
+          final newEpisodes = result.value.results
+              .where((e) => _seenIds.add(e.id))
+              .toList();
+          _episodes.addAll(newEpisodes);
+
+          // Update pagination only on remote data, not on cache emission
+          final isRemoteEmission = !isFirstEmission || _page > 1;
+          if (isRemoteEmission) {
+            _page++;
+            _hasNext = result.value.hasNext;
+            _isLoading = false;
+          }
+          _error = null;
+        case Error():
+          _isLoading = false;
+          _error = result.error;
+      }
+      isFirstEmission = false;
+      notifyListeners();
     }
-    _isLoading = false;
-    notifyListeners();
   }
 }
